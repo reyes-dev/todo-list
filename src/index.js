@@ -1,26 +1,5 @@
-const todoItemFactory = (title, description, dueDate, priority) => {
-  let completion = false;
-  const getCompletion = () => {
-    return completion;
-  };
-  const setCompletion = () => {
-    completion = true;
-  };
-
-  return {
-    title,
-    description,
-    dueDate,
-    priority,
-    getCompletion,
-    setCompletion,
-  };
-};
-
-const projectFactory = (title) => {
-  return { title, storage: [] };
-};
-
+import { todoItemFactory } from "./modules/todo";
+import { projectFactory } from "./modules/project";
 const task = todoItemFactory(
   "Complete ToDo list app",
   "Build a simple todo list application in JS",
