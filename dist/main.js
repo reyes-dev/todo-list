@@ -1,1 +1,1 @@
-console.log("I'm Alive!");
+(()=>{const o=("Complete ToDo list app","Build a simple todo list application in JS",{title:"Complete ToDo list app",description:"Build a simple todo list application in JS",dueDate:Date(),priority:1});console.log(o.title),console.log(o.description),console.log(o.dueDate)})();
