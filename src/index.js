@@ -1,5 +1,20 @@
 const todoItemFactory = (title, description, dueDate, priority) => {
-  return { title, description, dueDate, priority };
+  let completion = false;
+  const getCompletion = () => {
+    return completion;
+  };
+  const setCompletion = () => {
+    completion = true;
+  };
+
+  return {
+    title,
+    description,
+    dueDate,
+    priority,
+    getCompletion,
+    setCompletion,
+  };
 };
 
 const projectFactory = (title) => {
@@ -13,6 +28,7 @@ const task = todoItemFactory(
   1
 );
 
-const inbox = projectFactory("Inbox");
+let inbox = projectFactory("Inbox");
 inbox.storage.push(task);
-console.log(inbox.storage);
+inbox.storage[0].setCompletion();
+console.log(inbox.storage[0].getCompletion());
