@@ -1,8 +1,6 @@
 import { todoItemFactory } from "./modules/todo";
 import { projectFactory, loopStorageDisplay } from "./modules/project";
-import { setupTodoElements } from "./modules/display";
-const element = document.querySelector("div#content");
-
+import { element } from "./modules/display";
 const inbox = projectFactory("Inbox");
 
 const task1 = todoItemFactory(

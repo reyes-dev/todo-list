@@ -1,3 +1,5 @@
+const element = document.querySelector("div#content");
+
 const setupTodoElements = (todo) => {
   const title = document.createElement("h1");
   const description = document.createElement("p");
@@ -9,4 +11,10 @@ const setupTodoElements = (todo) => {
   return { title, description, dueDate };
 };
 
-export { setupTodoElements };
+const displayTodo = (taskInfo) => {
+  element.appendChild(taskInfo.title);
+  element.appendChild(taskInfo.description);
+  element.appendChild(taskInfo.dueDate);
+};
+
+export { element, setupTodoElements, displayTodo };
