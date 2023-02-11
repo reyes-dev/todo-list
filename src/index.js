@@ -1,15 +1,22 @@
 import { todoItemFactory } from "./modules/todo";
-import { projectFactory } from "./modules/project";
+import { projectFactory, loopStorageDisplay } from "./modules/project";
 import { setupTodoElements } from "./modules/display";
 const element = document.querySelector("div#content");
 
-const task = todoItemFactory(
+const inbox = projectFactory("Inbox");
+
+const task1 = todoItemFactory(
   "Complete ToDo list app",
   "Build a simple todo list application in JS",
   Date()
 );
 
-const taskInfo = setupTodoElements(task);
-element.appendChild(taskInfo.title);
-element.appendChild(taskInfo.description);
-element.appendChild(taskInfo.dueDate);
+const task2 = todoItemFactory(
+  "Write an array loop function",
+  "Build a function that loops over the storage array of the passed projectFactory object",
+  Date()
+);
+
+inbox.storage.push(task1, task2);
+
+loopStorageDisplay(inbox.storage, element);
