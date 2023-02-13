@@ -1,12 +1,15 @@
 import { todoItemFactory } from "./modules/todo";
 import { projectFactory, loopStorageDisplay } from "./modules/project";
 import { element, navbar, setupPage } from "./modules/display";
+const form = document.querySelector("form");
+
 setupPage();
 const projects = [];
 const inbox = projectFactory("Inbox");
 const todoProject = projectFactory("Todo Project");
 projects.push(inbox);
 projects.push(todoProject);
+let currentProject = projects[0];
 
 const task1 = todoItemFactory(
   "Complete ToDo list app",
@@ -25,11 +28,15 @@ const task3 = todoItemFactory(
   "Give links in a nav bar to alternate between different project task lists",
   Date()
 );
-// For each link-to-project, add an eventlistener that clears the div container and repopulates it with project-specific tasks
+const clearAndDisplay = (project) => {
+  element.innerHTML = "";
+  loopStorageDisplay(project.storage, element);
+};
+// For each link-to-project, add an eventlistener that clears the div container and repopulates it with project-specific tasks, and sets the currentProject variable
 const addProjectEventListeners = (link, project) => {
   link.addEventListener("click", () => {
-    element.innerHTML = "";
-    loopStorageDisplay(project.storage, element);
+    clearAndDisplay(project);
+    currentProject = project;
   });
 };
 // For each project, create a link and append it to the navbar, and add an event listener to that link
@@ -47,3 +54,14 @@ inbox.storage.push(task1, task2);
 todoProject.storage.push(task3);
 generateProjectLinks(projects);
 loopStorageDisplay(inbox.storage, element);
+
+form.onsubmit = (event) => {
+  event.preventDefault();
+  let title = document.getElementById("title").value;
+  let description = document.getElementById("description").value;
+  let dueDate = document.getElementById("dueDate").value;
+  let newTodoItem = todoItemFactory(title, description, dueDate);
+  currentProject.storage.push(newTodoItem);
+  form.reset();
+  clearAndDisplay(currentProject);
+};
