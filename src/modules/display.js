@@ -1,4 +1,9 @@
 const element = document.querySelector("div#content");
+const navbar = document.createElement("nav");
+
+const setupPage = () => {
+  document.body.appendChild(navbar);
+};
 
 const setupTodoElements = (todo) => {
   const title = document.createElement("h1");
@@ -17,4 +22,4 @@ const displayTodo = (taskInfo) => {
   element.appendChild(taskInfo.dueDate);
 };
 
-export { element, setupTodoElements, displayTodo };
+export { element, navbar, setupPage, setupTodoElements, displayTodo };
