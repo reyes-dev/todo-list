@@ -1,7 +1,8 @@
 import { todoItemFactory } from "./modules/todo";
 import { projectFactory, loopStorageDisplay } from "./modules/project";
 import { element, navbar, setupPage } from "./modules/display";
-const form = document.querySelector("form");
+const todoForm = document.querySelector("#todoForm");
+const projectForm = document.querySelector("#projectForm");
 
 setupPage();
 const projects = [];
@@ -55,13 +56,22 @@ todoProject.storage.push(task3);
 generateProjectLinks(projects);
 loopStorageDisplay(inbox.storage, element);
 
-form.onsubmit = (event) => {
+todoForm.onsubmit = (event) => {
   event.preventDefault();
   let title = document.getElementById("title").value;
   let description = document.getElementById("description").value;
   let dueDate = document.getElementById("dueDate").value;
   let newTodoItem = todoItemFactory(title, description, dueDate);
   currentProject.storage.push(newTodoItem);
-  form.reset();
+  todoForm.reset();
   clearAndDisplay(currentProject);
+};
+projectForm.onsubmit = (event) => {
+  event.preventDefault();
+  const projectName = document.getElementById("projectName").value;
+  const newProject = projectFactory(projectName);
+  projects.push(newProject);
+  projectForm.reset();
+  navbar.innerHTML = "";
+  generateProjectLinks(projects);
 };
