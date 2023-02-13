@@ -7,28 +7,9 @@ const projectForm = document.querySelector("#projectForm");
 setupPage();
 const projects = [];
 const inbox = projectFactory("Inbox");
-const todoProject = projectFactory("Todo Project");
 projects.push(inbox);
-projects.push(todoProject);
 let currentProject = projects[0];
-
-const task1 = todoItemFactory(
-  "Complete ToDo list app",
-  "Build a simple todo list application in JS",
-  Date()
-);
-
-const task2 = todoItemFactory(
-  "Write an array loop function",
-  "Build a function that loops over the storage array of the passed projectFactory object",
-  Date()
-);
-
-const task3 = todoItemFactory(
-  "Write code to change projects",
-  "Give links in a nav bar to alternate between different project task lists",
-  Date()
-);
+// Clear out the todo item container and run function to repopulate it with todo items
 const clearAndDisplay = (project) => {
   element.innerHTML = "";
   loopStorageDisplay(project.storage, element);
@@ -50,12 +31,7 @@ const generateProjectLinks = (projectList) => {
     addProjectEventListeners(navLink, projectList[index]);
   }
 };
-
-inbox.storage.push(task1, task2);
-todoProject.storage.push(task3);
-generateProjectLinks(projects);
-loopStorageDisplay(inbox.storage, element);
-
+// Event listeners to add new todo items and projects
 todoForm.onsubmit = (event) => {
   event.preventDefault();
   let title = document.getElementById("title").value;
@@ -75,3 +51,6 @@ projectForm.onsubmit = (event) => {
   navbar.innerHTML = "";
   generateProjectLinks(projects);
 };
+// Set up the initial page with the default project (inbox)
+generateProjectLinks(projects);
+loopStorageDisplay(inbox.storage, element);
