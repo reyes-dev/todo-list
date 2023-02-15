@@ -1,13 +1,14 @@
 import { todoItemFactory } from "./modules/todo";
 import { projectFactory, loopStorageDisplay } from "./modules/project";
 import { element, navbar, setupPage } from "./modules/display";
+import { setupStorage, updateStorage } from "./modules/storage";
 const todoForm = document.querySelector("#todoForm");
 const projectForm = document.querySelector("#projectForm");
 
 setupPage();
-const projects = [];
-const inbox = projectFactory("Inbox");
-projects.push(inbox);
+let projects = setupStorage();
+console.log(projects[0]);
+// Current project variable for the sake of pushing new tasks to current project
 let currentProject = projects[0];
 // Clear out the todo item container and run function to repopulate it with todo items
 const clearAndDisplay = (project) => {
@@ -39,6 +40,7 @@ todoForm.onsubmit = (event) => {
   let dueDate = document.getElementById("dueDate").value;
   let newTodoItem = todoItemFactory(title, description, dueDate);
   currentProject.storage.push(newTodoItem);
+  updateStorage(projects);
   todoForm.reset();
   clearAndDisplay(currentProject);
 };
@@ -47,10 +49,11 @@ projectForm.onsubmit = (event) => {
   const projectName = document.getElementById("projectName").value;
   const newProject = projectFactory(projectName);
   projects.push(newProject);
+  updateStorage(projects);
   projectForm.reset();
   navbar.innerHTML = "";
   generateProjectLinks(projects);
 };
 // Set up the initial page with the default project (inbox)
 generateProjectLinks(projects);
-loopStorageDisplay(inbox.storage, element);
+loopStorageDisplay(projects[0].storage, element);
