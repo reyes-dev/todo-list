@@ -7,9 +7,8 @@ const projectForm = document.querySelector("#projectForm");
 
 setupPage();
 let projects = setupStorage();
-console.log(projects[0]);
 // Current project variable for the sake of pushing new tasks to current project
-let currentProject = projects[0];
+export let currentProject = projects[0];
 // Clear out the todo item container and run function to repopulate it with todo items
 const clearAndDisplay = (project) => {
   element.innerHTML = "";
@@ -57,3 +56,5 @@ projectForm.onsubmit = (event) => {
 // Set up the initial page with the default project (inbox)
 generateProjectLinks(projects);
 loopStorageDisplay(projects[0].storage, element);
+
+export { clearAndDisplay };
